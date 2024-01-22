@@ -1,0 +1,9 @@
+res://game.tscn
+res://mob.tscn
+res://boss.tscn
+res://characters/slime/slime.tscn
+res://player.tscn
+res://gun.tscn
+res://second_gun.tscn
+res://pickablegun.tscn
+res://pickablegun.gd

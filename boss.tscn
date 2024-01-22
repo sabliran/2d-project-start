@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfx5hl4p7iuse"]
+
+[ext_resource type="Script" path="res://boss.gd" id="1_5os2r"]
+[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime/slime.tscn" id="1_hxb2f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xfph7"]
+
+[node name="boss" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_5os2r")
+
+[node name="BossSlime" parent="." instance=ExtResource("1_hxb2f")]
+unique_name_in_owner = true
+modulate = Color(0.537255, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_xfph7")

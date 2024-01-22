@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuqgcny633avn"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_ug7qf"]
+[ext_resource type="PackedScene" uid="uid://cror63swkqvi6" path="res://player.tscn" id="1_ypppe"]
+[ext_resource type="PackedScene" uid="uid://beitrs7ql7efk" path="res://pine_tree.tscn" id="2_jb5lt"]
+
+[sub_resource type="Curve2D" id="Curve2D_ijttx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -79, -46, 0, 0, 0, 0, 1966, -47, 0, 0, 0, 0, 1982, 1128, 0, 0, 0, 0, -101, 1128, 0, 0, 0, 0, -79, -46)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_ug7qf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -30
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1930.0
+offset_bottom = 1088.0
+color = Color(0.768627, 0.768627, 0.960784, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_ypppe")]
+y_sort_enabled = true
+position = Vector2(852, 546)
+
+[node name="Pine_tree" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(468, 597)
+
+[node name="Pine_tree2" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(1240, 433)
+
+[node name="Pine_tree3" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(901, 198)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ijttx")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-79, -46)
+rotation = -0.000488997

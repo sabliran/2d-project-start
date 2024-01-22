@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuqgcny633avn"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_ug7qf"]
+[ext_resource type="PackedScene" uid="uid://cror63swkqvi6" path="res://player.tscn" id="1_ypppe"]
+[ext_resource type="PackedScene" uid="uid://beitrs7ql7efk" path="res://pine_tree.tscn" id="2_jb5lt"]
+
+[sub_resource type="Curve2D" id="Curve2D_ijttx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -79, -46, 0, 0, 0, 0, 1966, -47, 0, 0, 0, 0, 1982, 1128, 0, 0, 0, 0, -101, 1128, 0, 0, 0, 0, -79, -46)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxe7o"]
+size = Vector2(341, 244)
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_ug7qf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -30
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1930.0
+offset_bottom = 1088.0
+color = Color(0.768627, 0.768627, 0.960784, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_ypppe")]
+y_sort_enabled = true
+position = Vector2(852, 546)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-852, -546)
+curve = SubResource("Curve2D_ijttx")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-79, -46)
+rotation = -0.000488997
+
+[node name="Pine_tree" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(468, 597)
+
+[node name="Pine_tree2" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(1240, 433)
+
+[node name="Pine_tree3" parent="." instance=ExtResource("2_jb5lt")]
+position = Vector2(901, 198)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 17.846
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.360784, 0, 0, 0.815686)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 180
+text = "Game Over"
+
+[node name="BossTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="boss area" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-239, 49)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss area"]
+position = Vector2(-2, -2)
+shape = SubResource("RectangleShape2D_sxe7o")
+debug_color = Color(0.698039, 0, 0.188235, 0.419608)
+
+[node name="ColorRect" type="ColorRect" parent="boss area"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -119.0
+offset_right = 168.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="BossTimer" to="." method="_on_boss_timer_timeout"]
